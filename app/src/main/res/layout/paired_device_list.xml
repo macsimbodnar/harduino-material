@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/md_keylines">
+
+    <ImageView
+        android:id="@+id/paired_device_list_img"
+        android:layout_width="@dimen/avator_size"
+        android:layout_height="@dimen/avator_size"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/bt_logo" />
+
+    <TextView
+        android:id="@+id/paired_device_list_device_name"
+        android:layout_width="209dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/md_keylines"
+        android:layout_toEndOf="@+id/paired_device_list_img"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/article_subheading"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/paired_device_list_device_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/paired_device_list_device_name"
+        android:layout_marginStart="@dimen/md_keylines"
+        android:layout_toEndOf="@+id/paired_device_list_img"
+        android:textColor="@color/medium_grey"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/list_body" />
+
+</RelativeLayout>
