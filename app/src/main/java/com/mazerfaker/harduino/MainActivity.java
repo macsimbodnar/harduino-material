@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mazerfaker.harduino.fragments.BaseFragment;
@@ -50,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void checkBTState() {
-
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBtAdapter == null) {
             String message = getResources().getText(R.string.bluetooth_not_supported).toString();
@@ -62,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 // Prompt user to turn on Bluetooth //
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, 1);
-
             }
         }
     }
@@ -79,11 +80,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    /******************************
-     *
-     *  CLASSES
-     *
-     ******************************/
     static class Adapter extends FragmentPagerAdapter {
         private final List<BaseFragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

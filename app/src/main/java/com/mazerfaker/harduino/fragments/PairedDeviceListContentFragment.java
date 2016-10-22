@@ -9,9 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ import java.util.List;
 import java.util.Set;
 
 public class PairedDeviceListContentFragment extends BaseFragment {
+    private static final String TAG = "PairedDeviceList...";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +33,7 @@ public class PairedDeviceListContentFragment extends BaseFragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view, container, false);
+
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -42,12 +47,31 @@ public class PairedDeviceListContentFragment extends BaseFragment {
         public ImageView avator;
         public TextView name;
         public TextView address;
+        public String mac_address;
+
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.paired_device_list, parent, false));
+
+            itemView.setOnClickListener(mDeviceClickListener);
+
             avator = (ImageView) itemView.findViewById(R.id.paired_device_list_img);
             name = (TextView) itemView.findViewById(R.id.paired_device_list_device_name);
             address = (TextView) itemView.findViewById(R.id.paired_device_list_device_address);
         }
+
+        private View.OnClickListener mDeviceClickListener = new View.OnClickListener() {
+            public void onClick(View view) {
+
+
+
+
+
+
+            Log.d(TAG, mac_address);
+            }
+        };
+
+
     }
 
 
@@ -59,7 +83,6 @@ public class PairedDeviceListContentFragment extends BaseFragment {
         private final List<String> mDeviceName;
         private final List<String> mDeviceAddress;
         private final List<Drawable> mAvatar;
-
 
         public ContentAdapter(Context context) {
             mDeviceName = new ArrayList<>();
@@ -85,7 +108,9 @@ public class PairedDeviceListContentFragment extends BaseFragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.avator.setImageDrawable(mAvatar.get(position));
             holder.name.setText(mDeviceName.get(position));
-            holder.address.setText(mDeviceAddress.get(position));
+            String mac_address = mDeviceAddress.get(position);
+            holder.address.setText(mac_address);
+            holder.mac_address = mac_address;
         }
 
         @Override
@@ -93,4 +118,5 @@ public class PairedDeviceListContentFragment extends BaseFragment {
             return pairedDevices.size();
         }
     }
+
 }
