@@ -3,20 +3,21 @@ package com.mazerfaker.harduino.fragments;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mazerfaker.harduino.Constants;
+import com.mazerfaker.harduino.DeviceActivity;
 import com.mazerfaker.harduino.R;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.Set;
 
 public class PairedDeviceListContentFragment extends BaseFragment {
     private static final String TAG = "PairedDeviceList...";
-
+    private Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +35,8 @@ public class PairedDeviceListContentFragment extends BaseFragment {
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view, container, false);
 
-        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
+        context = recyclerView.getContext();
+        ContentAdapter adapter = new ContentAdapter(context);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -43,7 +45,7 @@ public class PairedDeviceListContentFragment extends BaseFragment {
 
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView avator;
         public TextView name;
         public TextView address;
@@ -61,21 +63,15 @@ public class PairedDeviceListContentFragment extends BaseFragment {
 
         private View.OnClickListener mDeviceClickListener = new View.OnClickListener() {
             public void onClick(View view) {
-
-
-
-
-
-
-            Log.d(TAG, mac_address);
+                Intent i = new Intent(context, DeviceActivity.class);
+                i.putExtra(Constants.EXTRA_DEVICE_ADDRESS, mac_address);
+                startActivity(i);
             }
         };
-
-
     }
 
 
-    public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
         private BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         private Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
