@@ -7,30 +7,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
-import com.mazerfaker.harduino.Constants;
-import com.mazerfaker.harduino.MainActivity;
-import com.mazerfaker.harduino.R;
 import com.mazerfaker.harduino.bluetooth.ConnectedThread;
-import com.mazerfaker.harduino.fragments.BaseFragment;
-import com.mazerfaker.harduino.fragments.DeviceFragment;
-import com.mazerfaker.harduino.fragments.DeviceListContentFragment;
-import com.mazerfaker.harduino.fragments.PairedDeviceListContentFragment;
+import com.mazerfaker.harduino.components.VerticalSeekBar;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -67,10 +57,49 @@ public class DeviceActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
 
         setContentView(R.layout.activity_device);
         Button btnSend = (Button) findViewById(R.id.submit_button);
-        btAdapter = BluetoothAdapter.getDefaultAdapter();
+        final TextView sliderTextLeft = (TextView)findViewById(R.id.verticalSeekbarTextLeft);
+        final TextView sliderTextRight = (TextView)findViewById(R.id.verticalSeekbarTextRight);
+        sliderTextLeft.setTextSize(48);
+        sliderTextRight.setTextSize(48);
+
+        VerticalSeekBar seekBarLeft = (VerticalSeekBar)findViewById(R.id.seek_bar_left);
+        seekBarLeft.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mConnectedThread.write("~" + String.format("%03d", progress) + "l");
+                sliderTextLeft.setText("" + progress);
+            }
+        });
+
+        VerticalSeekBar seekBarRight = (VerticalSeekBar)findViewById(R.id.seek_bar_right);
+        seekBarRight.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mConnectedThread.write("~" + String.format("%03d", progress) + "r");
+                sliderTextRight.setText("" + progress);
+            }
+        });
+
 
         // Set up onClick listeners //
         btnSend.setOnClickListener(new View.OnClickListener() {

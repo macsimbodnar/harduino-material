@@ -4,4 +4,5 @@
     <string name="device_list_tab_title">Devices</string>
     <string name="paired_device_list_tab_title">Paired Devices</string>
     <string name="bluetooth_not_supported">Bluetooth not supported on this device :(</string>
+    <string name="value">Value</string>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,5 +16,47 @@
         android:layout_marginTop="33dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true" />
+
+    <com.mazerfaker.harduino.components.VerticalSeekBar
+        android:id="@+id/seek_bar_right"
+        android:max="255"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="30dp"
+        android:progress="0"
+        android:layout_alignTop="@+id/submit_button" />
+
+    <com.mazerfaker.harduino.components.VerticalSeekBar
+        android:id="@+id/seek_bar_left"
+        android:max="255"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="30dp"
+        android:progress="0"
+        android:layout_alignTop="@+id/submit_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalSeekbarTextRight"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/value"
+        tools:context=".DeviceActivity"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/submit_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalSeekbarTextLeft"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/value"
+        tools:context=".DeviceActivity"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/submit_button" />
 
 </RelativeLayout>
