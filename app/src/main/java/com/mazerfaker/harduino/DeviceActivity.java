@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,8 +31,6 @@ public class DeviceActivity extends AppCompatActivity {
     private ConnectedThread mConnectedThread;
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
-    private boolean flag = false;
-
 
     // SPP UUID service - this should work for most devices //
     private static final UUID BTMODULEUUID = UUID.fromString(Constants.DEFAULT_UUID);
@@ -60,13 +59,21 @@ public class DeviceActivity extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
         setContentView(R.layout.activity_device);
-        Button btnSend = (Button) findViewById(R.id.submit_button);
+        final Button forwardButton = (Button) findViewById(R.id.forward_button);
+        final Button backButton = (Button) findViewById(R.id.back_button);
+        Button startButton = (Button) findViewById(R.id.nos_button);
+        Button stopButton = (Button) findViewById(R.id.stop_button);
+        Button forwardLeftButton = (Button) findViewById(R.id.forward_left_button);
+        Button forwardRightButton = (Button) findViewById(R.id.forward_right_button);
+        Button backLeftButton = (Button) findViewById(R.id.back_left_button);
+        Button backRightButton = (Button) findViewById(R.id.back_right_button);
+        FloatingActionButton fireButton = (FloatingActionButton) findViewById(R.id.fire_button);
+
         final TextView sliderTextLeft = (TextView)findViewById(R.id.verticalSeekbarTextLeft);
         final TextView sliderTextRight = (TextView)findViewById(R.id.verticalSeekbarTextRight);
-        sliderTextLeft.setTextSize(48);
-        sliderTextRight.setTextSize(48);
+        final TextView elevationText = (TextView)findViewById(R.id.gunElevetionText);
 
-        VerticalSeekBar seekBarLeft = (VerticalSeekBar)findViewById(R.id.seek_bar_left);
+        final VerticalSeekBar seekBarLeft = (VerticalSeekBar)findViewById(R.id.seek_bar_left);
         seekBarLeft.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -83,7 +90,7 @@ public class DeviceActivity extends AppCompatActivity {
             }
         });
 
-        VerticalSeekBar seekBarRight = (VerticalSeekBar)findViewById(R.id.seek_bar_right);
+        final VerticalSeekBar seekBarRight = (VerticalSeekBar)findViewById(R.id.seek_bar_right);
         seekBarRight.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -100,20 +107,89 @@ public class DeviceActivity extends AppCompatActivity {
             }
         });
 
+        final VerticalSeekBar elevation = (VerticalSeekBar) findViewById(R.id.gun_elevation);
+        elevation.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
-        // Set up onClick listeners //
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(flag) {
-                    mConnectedThread.write("~on");
-                    flag = false;
-                } else {
-                    mConnectedThread.write("~off");
-                    flag = true;
-                }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mConnectedThread.write("~" + String.format("%03d", progress) + "e");
+                elevationText.setText("" + progress);
             }
         });
 
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~af");
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~ab");
+            }
+        });
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~go");
+                seekBarRight.setProgress(255);
+                seekBarLeft.setProgress(255);
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~st");
+                seekBarRight.setProgress(0);
+                seekBarLeft.setProgress(0);
+            }
+        });
+
+        forwardLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~lf");
+            }
+        });
+
+        forwardRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~rf");
+            }
+        });
+
+        backLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~lb");
+            }
+        });
+
+        backRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~rb");
+            }
+        });
+
+        fireButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("~gf");
+            }
+        });
     }
 
     @Override

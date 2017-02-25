@@ -9,54 +9,184 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true" />
-
     <com.mazerfaker.harduino.components.VerticalSeekBar
         android:id="@+id/seek_bar_right"
         android:max="255"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
         android:layout_marginBottom="30dp"
         android:progress="0"
-        android:layout_alignTop="@+id/submit_button" />
+        android:layout_below="@+id/verticalSeekbarTextRight" />
 
     <com.mazerfaker.harduino.components.VerticalSeekBar
         android:id="@+id/seek_bar_left"
         android:max="255"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
         android:layout_marginBottom="30dp"
         android:progress="0"
-        android:layout_alignTop="@+id/submit_button" />
+        android:layout_below="@+id/verticalSeekbarTextLeft" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/verticalSeekbarTextRight"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/value"
-        tools:context=".DeviceActivity"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/submit_button" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/verticalSeekbarTextLeft"
         android:padding="@dimen/padding_medium"
-        android:text="@string/value"
+        android:text="@string/speed"
         tools:context=".DeviceActivity"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/submit_button" />
+        android:textSize="18sp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/gunElevetionText"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/elevation"
+        tools:context=".DeviceActivity"
+        android:textSize="18sp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_width="120dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalSeekbarTextRight"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/speed"
+        tools:context=".DeviceActivity"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/verticalSeekbarTextLeft"
+        android:layout_alignBottom="@+id/verticalSeekbarTextLeft"
+        android:layout_alignParentEnd="true"
+        />
+
+    <TableLayout
+        android:id="@+id/controller_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:weightSum="6"
+        android:layout_alignBottom="@+id/seek_bar_right"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="75dp">
+
+        <TableRow
+            android:id="@+id/table_1"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/forward_button"
+                android:text="@string/all_forward"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_span="2"/>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/table_2"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/forward_left_button"
+                android:text="@string/forward"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/forward_right_button"
+                android:text="@string/forward"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ButtonStyle" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/table_3"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/back_left_button"
+                android:text="@string/back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/back_right_button"
+                android:text="@string/back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ButtonStyle" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/table_4"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/back_button"
+                android:text="@string/all_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_span="2"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/table_5"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/stop_button"
+                android:text="@string/stop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/nos_button"
+                android:text="@string/start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="ButtonStyle" />
+        </TableRow>
+    </TableLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:layout_below="@+id/verticalSeekbarTextLeft"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/controller_container"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="75dp">
+
+        <com.mazerfaker.harduino.components.VerticalSeekBar
+            android:id="@+id/gun_elevation"
+            android:max="255"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="35dp"
+            android:layout_marginBottom="30dp"
+            android:progress="0" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fire_button"
+            android:layout_height="132dp"
+            android:layout_gravity="right"
+            android:layout_margin="16dp"
+            android:layout_width="132dp"
+            tools:ignore="RtlHardcoded" />
+
+    </GridLayout>
 
 </RelativeLayout>
