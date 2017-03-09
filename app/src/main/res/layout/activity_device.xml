@@ -172,7 +172,7 @@
 
         <com.mazerfaker.harduino.components.VerticalSeekBar
             android:id="@+id/gun_elevation"
-            android:max="255"
+            android:max="110"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginStart="35dp"
