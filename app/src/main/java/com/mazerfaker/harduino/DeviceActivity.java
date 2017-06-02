@@ -60,16 +60,18 @@ public class DeviceActivity extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
         setContentView(R.layout.activity_device);
-        final Button forwardButton = (Button) findViewById(R.id.forward_button);
-        final Button backButton = (Button) findViewById(R.id.back_button);
-        Button startButton = (Button) findViewById(R.id.nos_button);
-        Button stopButton = (Button) findViewById(R.id.stop_button);
         Button forwardLeftButton = (Button) findViewById(R.id.forward_left_button);
         Button forwardRightButton = (Button) findViewById(R.id.forward_right_button);
         Button backLeftButton = (Button) findViewById(R.id.back_left_button);
         Button backRightButton = (Button) findViewById(R.id.back_right_button);
-        FloatingActionButton fireButton = (FloatingActionButton) findViewById(R.id.fire_button);
+        Button fireButton = (Button) findViewById(R.id.fire_button);
+        Button turretLeftButton = (Button) findViewById(R.id.turret_left_button);
+        Button turretRightButton = (Button) findViewById(R.id.turret_right_button);
+        Button gunUpButton = (Button) findViewById(R.id.gun_up_button);
+        Button gunDownButton = (Button) findViewById(R.id.gun_down_button);
 
+
+        /*
         final TextView sliderTextLeft = (TextView)findViewById(R.id.verticalSeekbarTextLeft);
         final TextView sliderTextRight = (TextView)findViewById(R.id.verticalSeekbarTextRight);
         final TextView elevationText = (TextView)findViewById(R.id.gunElevetionText);
@@ -86,7 +88,7 @@ public class DeviceActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mConnectedThread.write("~" + String.format("%03d", progress) + "l");
+                mConnectedThread.write("~" + String.format("%03d", progress) + "a");
                 sliderTextLeft.setText("" + progress);
             }
         });
@@ -103,7 +105,7 @@ public class DeviceActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mConnectedThread.write("~" + String.format("%03d", progress) + "r");
+                mConnectedThread.write("~" + String.format("%03d", progress) + "d");
                 sliderTextRight.setText("" + progress);
             }
         });
@@ -124,71 +126,122 @@ public class DeviceActivity extends AppCompatActivity {
                 elevationText.setText("" + progress);
             }
         });
+        */
 
-        forwardButton.setOnClickListener(new View.OnClickListener() {
+        forwardLeftButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~af");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~lf");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~ls");
+                }
+                return true;
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        forwardRightButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~ab");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~rf");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~rs");
+                }
+                return true;
             }
         });
 
-        startButton.setOnClickListener(new View.OnClickListener() {
+        backLeftButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~go");
-                seekBarRight.setProgress(255);
-                seekBarLeft.setProgress(255);
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~lb");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~ls");
+                }
+                return true;
             }
         });
 
-        stopButton.setOnClickListener(new View.OnClickListener() {
+        backRightButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~st");
-                seekBarRight.setProgress(0);
-                seekBarLeft.setProgress(0);
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~rb");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~rs");
+                }
+                return true;
             }
         });
 
-        forwardLeftButton.setOnClickListener(new View.OnClickListener() {
+        fireButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~lf");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~gf");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~gs");
+                }
+                return true;
             }
         });
 
-        forwardRightButton.setOnClickListener(new View.OnClickListener() {
+        turretLeftButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~rf");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~ag");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~as");
+                }
+                return true;
             }
         });
 
-        backLeftButton.setOnClickListener(new View.OnClickListener() {
+        turretRightButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~lb");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~dg");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~ds");
+                }
+                return true;
             }
         });
 
-        backRightButton.setOnClickListener(new View.OnClickListener() {
+        gunUpButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~rb");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~wg");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~ws");
+                }
+                return true;
             }
         });
 
-        fireButton.setOnClickListener(new View.OnClickListener() {
+        gunDownButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mConnectedThread.write("~gf");
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    mConnectedThread.write("~sg");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    mConnectedThread.write("~ss");
+                }
+                return true;
             }
         });
     }
