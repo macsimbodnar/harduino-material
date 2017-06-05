@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
 #define SPEED 150
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 11
 
 const int pin_rX = 12;
 const int pin_tX = 13;
@@ -20,9 +20,8 @@ const int pin_gunFireB = 11;
 
 SoftwareSerial BTserial(pin_rX, pin_tX); // RX | TX
 
-String message = "";
-String commandBuffer[BUFFER_SIZE];
-int bufferCount;
+char commandBuffer[BUFFER_SIZE];
+int bufferEnd;
 
 void setup() { 
   //Serial.begin(9600);
@@ -54,7 +53,10 @@ void setup() {
   digitalWrite(pin_gunFireF, LOW);
   digitalWrite(pin_gunFireB, LOW);
 
-  bufferCount = 0;
+  bufferEnd = 0;
+  for(int i = 0; i < BUFFER_SIZE; i++) {
+    commandBuffer[i] = '\0';
+  }
 }
  
 void loop(){
@@ -64,125 +66,100 @@ void loop(){
 
 void execActionBt() {
   if(!BTserial.available()) {
-    if(message!="") {
-      //Serial.println(message);
-      
-      if(message == "a") {
-        // left front: a
-        digitalWrite(pin_leftF, HIGH);
-        digitalWrite(pin_leftB, LOW);
-        message = "";  
-      } else if(message == "b") {
-        // right front: b
-        digitalWrite(pin_rightF, HIGH);
-        digitalWrite(pin_rightB, LOW);
-        message = "";  
-      } else if(message == "c") {
-        // left back: c
-        digitalWrite(pin_leftF, LOW);
-        digitalWrite(pin_leftB, HIGH);
-        message = "";        
-      } else if(message == "d") { 
-        // right back: d       
-        digitalWrite(pin_rightF, LOW);
-        digitalWrite(pin_rightB, HIGH);
-        message = "";
-      } else if(message == "e") {
-        // right stop: e
-        digitalWrite(pin_rightF, LOW);
-        digitalWrite(pin_rightB, LOW);
-        message = "";
-      } else if(message == "f") {
-        // left stop: f
-        digitalWrite(pin_leftF, LOW);
-        digitalWrite(pin_leftB, LOW);         
-        message = "";
-      } else if(message == "g") {        
-        // gun start fire: g
-        digitalWrite(pin_gunFireF, HIGH);
-        digitalWrite(pin_gunFireB, LOW);
-        message = "";
-      } else if(message == "h") {        
-        // gun stop fire: h
-        digitalWrite(pin_gunFireF, LOW);
-        digitalWrite(pin_gunFireB, LOW);
-        message = "";
-      } else if(message == "i") {        
-        // left turret go: i
-        digitalWrite(pin_turretF, HIGH);
-        digitalWrite(pin_turretB, LOW);
-        message = "";
-      } else if(message == "l") {        
-        // left turret stop: l
-        digitalWrite(pin_turretF, LOW);
-        digitalWrite(pin_turretB, LOW);
-        message = "";
-      } else if(message == "m") {        
-        // right turret go: m
-        digitalWrite(pin_turretF, LOW);
-        digitalWrite(pin_turretB, HIGH);
-        message = "";
-      } else if(message == "n") {        
-        // right turret stop: n
-        digitalWrite(pin_turretF, LOW);
-        digitalWrite(pin_turretB, LOW);
-        message = "";
-      } else if(message == "o") {        
-        // gun up go: o
-        digitalWrite(pin_gunElevationF, HIGH);
-        digitalWrite(pin_gunElevationB, LOW);
-        message = "";
-      } else if(message == "p") {        
-        // gun up stop: p
-        digitalWrite(pin_gunElevationF, LOW);
-        digitalWrite(pin_gunElevationB, LOW);
-        message = "";
-      } else if(message == "q") {        
-        // gun down go: q
-        digitalWrite(pin_gunElevationF, LOW);
-        digitalWrite(pin_gunElevationB, HIGH);
-        message = "";
-      } else if(message == "r") {        
-        // gun down stop: r
-        digitalWrite(pin_gunElevationF, LOW);
-        digitalWrite(pin_gunElevationB, LOW);
-        message = "";
-      } /*else {
-
-        
-        String m = message.substring(3, 4);
-        Serial.println(m);
-        if(m == "a") {
-          int v = message.substring(0, 3).toInt();
-          analogWrite(motor1, v);
-          Serial.println(v);
-          message = "";
-        } else if(m == "d") {
-          int v = message.substring(0, 3).toInt();
-          analogWrite(motor2, v);
-          Serial.println(v);
-          message = "";
-        } else if(m == "e") {
-          int v = message.substring(0, 3).toInt();
-          analogWrite(gunElevation, v);
-          Serial.println(v);
-          message = "";
-        }
-        
-      } */         
-    }
-  }
+    char command = getNextCommand();
+          
+    if(command == 'a') {
+      // left front: a
+      digitalWrite(pin_leftF, HIGH);
+      digitalWrite(pin_leftB, LOW);
+    } else if(command == 'b') {
+      // right front: b
+      digitalWrite(pin_rightF, HIGH);
+      digitalWrite(pin_rightB, LOW);
+    } else if(command == 'c') {
+      // left back: c
+      digitalWrite(pin_leftF, LOW);
+      digitalWrite(pin_leftB, HIGH);
+    } else if(command == 'd') { 
+      // right back: d       
+      digitalWrite(pin_rightF, LOW);
+      digitalWrite(pin_rightB, HIGH);
+    } else if(command == 'e') {
+      // right stop: e
+      digitalWrite(pin_rightF, LOW);
+      digitalWrite(pin_rightB, LOW);
+    } else if(command == 'f') {
+      // left stop: f
+      digitalWrite(pin_leftF, LOW);
+      digitalWrite(pin_leftB, LOW);         
+    } else if(command == 'g') {        
+      // gun start fire: g
+      digitalWrite(pin_gunFireF, HIGH);
+      digitalWrite(pin_gunFireB, LOW);
+    } else if(command == 'h') {        
+      // gun stop fire: h
+      digitalWrite(pin_gunFireF, LOW);
+      digitalWrite(pin_gunFireB, LOW);
+    } else if(command == 'i') {        
+      // left turret go: i
+      digitalWrite(pin_turretF, HIGH);
+      digitalWrite(pin_turretB, LOW);
+    } else if(command == 'l') {        
+      // left turret stop: l
+      digitalWrite(pin_turretF, LOW);
+      digitalWrite(pin_turretB, LOW);
+    } else if(command == 'm') {        
+      // right turret go: m
+      digitalWrite(pin_turretF, LOW);
+      digitalWrite(pin_turretB, HIGH);
+    } else if(command == 'n') {        
+      // right turret stop: n
+      digitalWrite(pin_turretF, LOW);
+      digitalWrite(pin_turretB, LOW);
+    } else if(command == 'o') {        
+      // gun up go: o
+      digitalWrite(pin_gunElevationF, HIGH);
+      digitalWrite(pin_gunElevationB, LOW);
+    } else if(command == 'p') {        
+      // gun up stop: p
+      digitalWrite(pin_gunElevationF, LOW);
+      digitalWrite(pin_gunElevationB, LOW);
+    } else if(command == 'q') {        
+      // gun down go: q
+      digitalWrite(pin_gunElevationF, LOW);
+      digitalWrite(pin_gunElevationB, HIGH);
+    } else if(command == 'r') {        
+      // gun down stop: r
+      digitalWrite(pin_gunElevationF, LOW);
+      digitalWrite(pin_gunElevationB, LOW);
+    }   
+  }  
 }
 
 void readMessageFromBt(){
   while(BTserial.available()){
     char c = char(BTserial.read());
-    if(c == '~') {
-      message = "";
-    } else {
-      message += c;          
+    commandBuffer[bufferEnd] = c;
+    if(bufferEnd < BUFFER_SIZE) {
+      bufferEnd++;
     }
   }
+}
+
+char getNextCommand() {
+  char c;
+  
+  if(bufferEnd > 0) {
+    c = commandBuffer[0];
+    for(int i = 0; i < bufferEnd; i++) {
+      commandBuffer[i] = commandBuffer[i + 1];
+    }
+    bufferEnd--;
+  } else {
+    c = '\0';
+  }
+  
+  return c;
 }
 
 void sendToBt(String message) {
