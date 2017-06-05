@@ -132,10 +132,11 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~lf");
+                    mConnectedThread.write("a");
+                    //
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~ls");
+                    mConnectedThread.write("f");
                 }
                 return true;
             }
@@ -145,10 +146,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~rf");
+                    mConnectedThread.write("b");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~rs");
+                    mConnectedThread.write("e");
                 }
                 return true;
             }
@@ -158,10 +159,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~lb");
+                    mConnectedThread.write("c");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~ls");
+                    mConnectedThread.write("f");
                 }
                 return true;
             }
@@ -171,10 +172,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~rb");
+                    mConnectedThread.write("d");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~rs");
+                    mConnectedThread.write("e");
                 }
                 return true;
             }
@@ -184,10 +185,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~gf");
+                    mConnectedThread.write("g");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~gs");
+                    mConnectedThread.write("h");
                 }
                 return true;
             }
@@ -197,10 +198,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~ag");
+                    mConnectedThread.write("i");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~as");
+                    mConnectedThread.write("l");
                 }
                 return true;
             }
@@ -210,10 +211,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~dg");
+                    mConnectedThread.write("m");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~ds");
+                    mConnectedThread.write("n");
                 }
                 return true;
             }
@@ -223,10 +224,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~wg");
+                    mConnectedThread.write("o");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~ws");
+                    mConnectedThread.write("p");
                 }
                 return true;
             }
@@ -236,10 +237,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("~sg");
+                    mConnectedThread.write("q");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("~ss");
+                    mConnectedThread.write("r");
                 }
                 return true;
             }
