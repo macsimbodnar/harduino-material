@@ -71,4 +71,16 @@ public class ConnectedThread extends Thread {
             Log.e(TAG, e.getMessage());
         }
     }
+
+
+    // write method //
+    public void write(char input) {
+        try {
+            //write bytes over BT connection via outstream //
+            mmOutStream.write(input);
+
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
 }

@@ -7,21 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-
 import com.mazerfaker.harduino.bluetooth.ConnectedThread;
-import com.mazerfaker.harduino.components.VerticalSeekBar;
-
 import java.io.IOException;
 import java.util.UUID;
 
@@ -70,73 +62,15 @@ public class DeviceActivity extends AppCompatActivity {
         Button gunUpButton = (Button) findViewById(R.id.gun_up_button);
         Button gunDownButton = (Button) findViewById(R.id.gun_down_button);
 
-
-        /*
-        final TextView sliderTextLeft = (TextView)findViewById(R.id.verticalSeekbarTextLeft);
-        final TextView sliderTextRight = (TextView)findViewById(R.id.verticalSeekbarTextRight);
-        final TextView elevationText = (TextView)findViewById(R.id.gunElevetionText);
-
-        final VerticalSeekBar seekBarLeft = (VerticalSeekBar)findViewById(R.id.seek_bar_left);
-        seekBarLeft.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mConnectedThread.write("~" + String.format("%03d", progress) + "a");
-                sliderTextLeft.setText("" + progress);
-            }
-        });
-
-        final VerticalSeekBar seekBarRight = (VerticalSeekBar)findViewById(R.id.seek_bar_right);
-        seekBarRight.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mConnectedThread.write("~" + String.format("%03d", progress) + "d");
-                sliderTextRight.setText("" + progress);
-            }
-        });
-
-        final VerticalSeekBar elevation = (VerticalSeekBar) findViewById(R.id.gun_elevation);
-        elevation.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mConnectedThread.write("~" + String.format("%03d", progress) + "e");
-                elevationText.setText("" + progress);
-            }
-        });
-        */
-
         forwardLeftButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("a");
-                    //
+                    mConnectedThread.write(Constants.LEFT_FRONT);
                 }
+
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("f");
+                    mConnectedThread.write(Constants.LEFT_STOP);
                 }
                 return true;
             }
@@ -146,10 +80,11 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("b");
+                    mConnectedThread.write(Constants.RIGHT_FRONT);
                 }
+
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("e");
+                    mConnectedThread.write(Constants.RIGHT_STOP);
                 }
                 return true;
             }
@@ -159,10 +94,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("c");
+                    mConnectedThread.write(Constants.LEFT_BACK);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("f");
+                    mConnectedThread.write(Constants.LEFT_STOP);
                 }
                 return true;
             }
@@ -172,10 +107,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("d");
+                    mConnectedThread.write(Constants.RIGHT_BACK);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("e");
+                    mConnectedThread.write(Constants.RIGHT_STOP);
                 }
                 return true;
             }
@@ -185,10 +120,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("g");
+                    mConnectedThread.write(Constants.GUN_FIRE);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("h");
+                    mConnectedThread.write(Constants.GUN_FIRE_STOP);
                 }
                 return true;
             }
@@ -198,10 +133,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("i");
+                    mConnectedThread.write(Constants.TURRET_LEFT);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("l");
+                    mConnectedThread.write(Constants.TURRET_LEFT_STOP);
                 }
                 return true;
             }
@@ -211,10 +146,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("m");
+                    mConnectedThread.write(Constants.RIGHT_TURRET);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("n");
+                    mConnectedThread.write(Constants.RIGHT_TURRET_STOP);
                 }
                 return true;
             }
@@ -224,10 +159,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("o");
+                    mConnectedThread.write(Constants.GUN_UP);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("p");
+                    mConnectedThread.write(Constants.GUN_UP_STOP);
                 }
                 return true;
             }
@@ -237,10 +172,10 @@ public class DeviceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    mConnectedThread.write("q");
+                    mConnectedThread.write(Constants.GUN_DOWN);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    mConnectedThread.write("r");
+                    mConnectedThread.write(Constants.GUN_DOWN_STOP);
                 }
                 return true;
             }
@@ -293,7 +228,7 @@ public class DeviceActivity extends AppCompatActivity {
          *
          *********************************************************************************************/
 
-        mConnectedThread.write("x");
+        //mConnectedThread.write("x");
     }
 
     @Override
