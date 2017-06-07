@@ -54,6 +54,27 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
+
+        <TableRow
+            android:id="@+id/table_3"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/turret_left_button"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/turret_left"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/turret_right_button"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/turret_right"
+                tools:ignore="ButtonStyle" />
+
+        </TableRow>
+
         <TableRow
             android:id="@+id/table_1"
             android:layout_weight="1">
@@ -94,43 +115,31 @@
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/turret_left_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/controller_container"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/turret_right_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/controller_container"
-        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/gun_up_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/verticalSeekbarTextLeft"
-        android:layout_marginTop="28dp"
-        android:layout_toStartOf="@+id/gunElevetionText" />
+        android:layout_above="@+id/gun_down_button"
+        android:layout_alignParentStart="true"
+        android:text="@string/turret_up"
+        android:layout_alignEnd="@+id/gun_down_button" />
 
     <Button
         android:id="@+id/gun_down_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/gun_up_button"
-        android:layout_below="@+id/gun_up_button"
-        android:layout_marginTop="29dp" />
+        android:layout_above="@+id/controller_container"
+        android:layout_alignParentStart="true"
+        android:text="@string/turret_down" />
 
     <Button
         android:id="@+id/fire_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/gun_up_button"
-        android:layout_alignStart="@+id/verticalSeekbarTextRight"
-        android:text="@string/fire" />
+        android:text="@string/fire"
+        android:layout_above="@+id/controller_container"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

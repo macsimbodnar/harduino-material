@@ -13,5 +13,9 @@
     <string name="all_back">All Back</string>
     <string name="fire">Fire</string>
     <string name="elevation">Elevation</string>
+    <string name="turret_left">TURRET LEFT</string>
+    <string name="turret_right">TURRET RIGHT</string>
+    <string name="turret_up">TURRET UP</string>
+    <string name="turret_down">TURRET DOWN</string>
 
 </resources>
