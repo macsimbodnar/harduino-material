@@ -30,17 +30,18 @@ public class DeviceActivity extends AppCompatActivity {
 
 
     private final Handler bluetoothIn = new Handler() {
+
         public void handleMessage(Message msg) {
             if (msg.what == Constants.MESSAGE_HANDLER_STATE) {
                 String readMessage = (String) msg.obj;
 
-                /*****************************
+                /*
                  *
                  *  DO WITH readMessage WHAT YOU WANT
                  *  for example
                  *  for example Toast message
                  *
-                 *****************************/
+                 */
                 Toast.makeText(getBaseContext(), readMessage, Toast.LENGTH_SHORT).show();
             }
         }
@@ -221,14 +222,14 @@ public class DeviceActivity extends AppCompatActivity {
         mConnectedThread = new ConnectedThread(btSocket, bluetoothIn);
         mConnectedThread.start();
 
-        /*********************************************************************************************
+        /*
          *
          * send a character when resuming.beginning transmission to check device is connected
          * if it is not an exception will be thrown in the write method and finish() will be called
          *
-         *********************************************************************************************/
+         */
 
-        //mConnectedThread.write("x");
+         //mConnectedThread.write("x");
     }
 
     @Override
