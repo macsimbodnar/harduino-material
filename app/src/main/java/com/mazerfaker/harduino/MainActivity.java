@@ -1,6 +1,5 @@
 package com.mazerfaker.harduino;
 
-
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -13,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.mazerfaker.harduino.fragments.Adapter;
 import com.mazerfaker.harduino.fragments.BaseFragment;
 import com.mazerfaker.harduino.fragments.DeviceListContentFragment;
 import com.mazerfaker.harduino.fragments.PairedDeviceListContentFragment;
@@ -21,9 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
 
-    private BluetoothAdapter mBtAdapter;
+    private static final String TAG = "MainActivity";
 
 
     @Override
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
 
     @Override
     public void onResume() {
@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
     }
 
+
     protected void checkBTState() {
-        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBtAdapter == null) {
             String message = getResources().getText(R.string.bluetooth_not_supported).toString();
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         final Adapter adapter = new Adapter(getSupportFragmentManager());
@@ -76,34 +78,4 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
     }
-
-    static class Adapter extends FragmentPagerAdapter {
-        private final List<BaseFragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public Adapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public BaseFragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(BaseFragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
 }
