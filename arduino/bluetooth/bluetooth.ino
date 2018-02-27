@@ -3,10 +3,10 @@
 #define PIN_RX 12
 #define PIN_TX 13
 #define PIN_SPEED 3
-#define PIN_LEFT_F 0
-#define PIN_LEFT_B 1
-#define PIN_RIGHT_F 4
-#define PIN_RIGHT_B 2
+#define PIN_LEFT_F 1
+#define PIN_LEFT_B 0
+#define PIN_RIGHT_F 2
+#define PIN_RIGHT_B 4
 #define PIN_SPEED_T 6
 #define PIN_TURRET_F 7
 #define PIN_TURRET_B 5
